@@ -11,7 +11,7 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 /* Version 1.2.0: select a verse to emphasize it. */
 .verse{width:100%;text-align:left;color:inherit;background:transparent;border:2px solid transparent;border-radius:8px;padding:10px;cursor:pointer;appearance:none}
 
-.verse.selected{border-color:var(--green);background:#fffbea;font-size:22px}
+.verse.selected{border-color:var(--green);background:#edf2e7;font-size:22px}
 .verse.selected .verse-number{font-size:18px;line-height:2.26}
 @media(max-width:700px){.verse{padding:8px}.verse.selected{font-size:20px}.verse.selected .verse-number{line-height:2}}
 
@@ -33,7 +33,7 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 #verse-panel h2{font-size:15px;margin:28px 0 14px}
 .back-link{display:inline-block;color:var(--green);font:bold 13px/1.6 Arial,sans-serif;text-decoration:none}
 .back-link:hover{text-decoration:underline}
-.detail-verse{border:2px solid var(--green);border-radius:8px;background:#fffbea;padding:14px;font:bold 21px/1.7 Georgia,serif;white-space:pre-wrap;user-select:text}
+.detail-verse{border:2px solid var(--green);border-radius:8px;background:#edf2e7;padding:14px;font:bold 21px/1.7 Georgia,serif;white-space:pre-wrap;user-select:text}
 #note-title{font-size:38px}
 #note-content{font:21px/1.7 Georgia,serif;margin:24px 0 36px;white-space:pre-line}
 @media(max-width:700px){.note-mode aside{width:175px;padding:18px 12px}.note-mode main{margin-left:175px;padding-left:18px;padding-right:18px}.detail-verse{font-size:18px;padding:10px}#note-content{font-size:19px}.note-mode .sidebar-foot a{font-size:10px}}
@@ -55,5 +55,5 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 @media(max-width:700px){.note-mode main{padding-left:16px}.note-layout{grid-template-columns:1fr}}
 
 /* Version 1.3.5: give the note text more space from the verse box. */
-.note-layout{column-gap:66px}
+.note-layout{column-gap:90px}
 @media(max-width:700px){.note-layout{column-gap:24px}}
