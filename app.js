@@ -19,6 +19,11 @@ function renderChapter() {
     paragraph.type = 'button';
     paragraph.setAttribute('aria-pressed', 'false');
     paragraph.addEventListener('click', () => {
+      const selection = window.getSelection();
+      if (selection && !selection.isCollapsed &&
+          (paragraph.contains(selection.anchorNode) || paragraph.contains(selection.focusNode))) {
+        return;
+      }
       const wasSelected = paragraph.classList.contains('selected');
       document.querySelectorAll('.verse.selected').forEach(item => {
         item.classList.remove('selected');
@@ -48,7 +53,7 @@ function renderChapter() {
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.2.3').then(response => {
+fetch('chapters.json?v=1.2.4').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {

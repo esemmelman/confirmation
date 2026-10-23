@@ -22,3 +22,6 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 /* Version 1.2.3: slightly larger reading text, no hover highlight. */
 .verse{font-size:21px}.verse.selected{font-size:23px}.verse-number{line-height:2.23125}.verse.selected .verse-number{line-height:2.1722}
 @media(max-width:700px){.verse{font-size:19px}.verse.selected{font-size:21px}.verse-number{line-height:2.01875}.verse.selected .verse-number{line-height:1.9833}}
+
+/* Version 1.2.4: allow selecting and copying verse text. */
+.verse{-webkit-user-select:text;user-select:text}.verse.selected{cursor:text}
