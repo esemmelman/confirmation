@@ -1,6 +1,33 @@
 'use strict';
 let chapters = [];
+let returnToVerse = false;
 function renderChapter() {
+  const showNote = location.hash === '#note-1-1';
+  document.body.classList.toggle('note-mode', showNote);
+  document.getElementById('chapter-view').hidden = showNote;
+  document.getElementById('note-view').hidden = !showNote;
+  document.getElementById('verse-panel').hidden = !showNote;
+  if (showNote) {
+    const verse = chapters.find(item => item.number === 1)?.verses[0];
+    if (!verse) return;
+    document.getElementById('detail-verse').textContent = `1  ${verse.text}`;
+    const paragraphs = verseNotes['1-1'].paragraphs.map(runs => {
+      const p = document.createElement('p');
+      runs.forEach(run => {
+        const element = document.createElement(run.bold ? 'strong' : 'span');
+        element.textContent = run.text;
+        p.append(element);
+      });
+      return p;
+    });
+    document.getElementById('note-content').replaceChildren(...paragraphs);
+    document.getElementById('breadcrumb').textContent = 'VERSE 1:1';
+    document.title = 'Genesis 1:1 · Study note';
+    returnToVerse = true;
+    window.scrollTo(0, 0);
+    document.getElementById('note-title').focus();
+    return;
+  }
   const match = location.hash.match(/^#chapter-([123])$/);
   const number = match ? Number(match[1]) : 1;
   const chapter = chapters.find(item => item.number === number);
@@ -14,9 +41,16 @@ function renderChapter() {
   document.getElementById('position').textContent = `${number} / 3`;
   document.title = `Genesis ${number}`;
   const verses = chapter.verses.map(verse => {
-    const paragraph = document.createElement('button');
+    const paragraph = document.createElement('div');
     paragraph.className = 'verse';
-    paragraph.type = 'button';
+    paragraph.tabIndex = 0;
+    paragraph.setAttribute('role', 'button');
+    paragraph.addEventListener('keydown', event => {
+      if (event.target === paragraph && (event.key === 'Enter' || event.key === ' ')) {
+        event.preventDefault();
+        paragraph.click();
+      }
+    });
     paragraph.setAttribute('aria-pressed', 'false');
     paragraph.addEventListener('click', () => {
       const selection = window.getSelection();
@@ -41,6 +75,20 @@ function renderChapter() {
     const text = document.createElement('span');
     text.className = 'verse-text';
     text.textContent = verse.text;
+    if (number === 1 && verse.number === 1) {
+      const star = document.createElement('a');
+      star.className = 'note-star';
+      star.href = '#note-1-1';
+      star.textContent = ' ★';
+      star.setAttribute('aria-label', 'Open study note for Genesis 1:1');
+      star.addEventListener('click', event => event.stopPropagation());
+      text.append(star);
+      paragraph.id = 'verse-1-1';
+      if (returnToVerse) {
+        paragraph.classList.add('selected');
+        paragraph.setAttribute('aria-pressed', 'true');
+      }
+    }
     paragraph.append(label, text);
     return paragraph;
   });
@@ -51,9 +99,13 @@ function renderChapter() {
     link.href = `#chapter-${target}`;
   }
   window.scrollTo(0, 0);
+  if (returnToVerse) {
+    document.getElementById('verse-1-1')?.focus();
+    returnToVerse = false;
+  }
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.2.4').then(response => {
+fetch('chapters.json?v=1.3.0').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {

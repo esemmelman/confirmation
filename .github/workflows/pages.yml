@@ -22,7 +22,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir _site
-          cp index.html styles.css app.js chapters.json _site/
+          cp index.html styles.css app.js notes.js chapters.json _site/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
