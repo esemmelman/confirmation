@@ -107,7 +107,7 @@ function renderChapter() {
   }
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.3.3').then(response => {
+fetch('chapters.json?v=1.3.4').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {

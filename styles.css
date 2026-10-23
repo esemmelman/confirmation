@@ -49,3 +49,7 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 
 /* Version 1.3.3: show study links only on the selected verse. */
 .verse .note-star{display:none}.verse.selected .note-star{display:inline}
+
+/* Version 1.3.4: align the study verse near the main area left border. */
+.note-mode main{padding-left:20px}#note-view{margin-left:0;margin-right:0;max-width:none}.note-layout{grid-template-columns:220px minmax(0,760px)}
+@media(max-width:700px){.note-mode main{padding-left:16px}.note-layout{grid-template-columns:1fr}}
