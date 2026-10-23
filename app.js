@@ -35,7 +35,7 @@ function renderChapter() {
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.1.0').then(response => {
+fetch('chapters.json?v=1.1.1').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {

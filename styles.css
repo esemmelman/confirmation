@@ -3,3 +3,7 @@
 /* Version 1.1.0: compact, bold reading layout. */
 aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px}nav a{padding:10px 16px;font-weight:700}header{height:48px;font-weight:700}article{margin-top:24px}h1{font-weight:700;margin:10px 0 16px}.eyebrow,.verse-text,.verse-number,footer{font-weight:700}#verses{margin-top:22px}.version{font:700 11px/2 Arial,sans-serif}
 @media(max-width:700px){aside{padding-top:18px}.nav-label{margin:0 10px 10px}nav a{padding:9px 12px}header{height:44px}article{margin-top:20px}}
+
+/* Version 1.1.1: prominent verse numbers. */
+.verse-number{font-size:16px;font-weight:700;line-height:2.3125;color:var(--ink)}
+@media(max-width:700px){.verse{grid-template-columns:24px 1fr}.verse-number{font-size:16px;line-height:2.025}}
