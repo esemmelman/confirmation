@@ -113,10 +113,27 @@ function renderChapter() {
   }
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.4.0').then(response => {
-  if (!response.ok) throw new Error('Chapter request failed');
-  return response.json();
-}).then(data => { chapters = data; renderChapter(); }).catch(() => {
-  document.getElementById('verses').replaceChildren();
-  document.getElementById('error').hidden = false;
-});
+async function initialize() {
+  const status = document.getElementById('sync-status');
+  try {
+    const latest = await loadLatestDocument();
+    chapters = latest.chapters;
+    Object.keys(verseNotes).forEach(key => delete verseNotes[key]);
+    Object.assign(verseNotes, latest.notes);
+    status.textContent = 'Latest document loaded';
+  } catch (error) {
+    try {
+      const response = await fetch('chapters.json?v=1.5.0');
+      if (!response.ok) throw new Error('Saved chapter request failed');
+      chapters = await response.json();
+      status.textContent = 'Google Doc unavailable. Showing saved text; reload to retry.';
+    } catch {
+      status.textContent = '';
+      document.getElementById('verses').replaceChildren();
+      document.getElementById('error').hidden = false;
+      return;
+    }
+  }
+  renderChapter();
+}
+initialize();
