@@ -11,9 +11,8 @@ function renderChapter() {
   });
   document.getElementById('chapter-title').textContent = `Chapter ${number}`;
   document.getElementById('breadcrumb').textContent = `CHAPTER ${number}`;
-  document.getElementById('verse-count').textContent = `${chapter.verses.length} verses`;
   document.getElementById('position').textContent = `${number} / 3`;
-  document.title = `Genesis ${number} · Confirmation`;
+  document.title = `Genesis ${number}`;
   const verses = chapter.verses.map(verse => {
     const paragraph = document.createElement('p');
     paragraph.className = 'verse';
@@ -36,7 +35,7 @@ function renderChapter() {
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json').then(response => {
+fetch('chapters.json?v=1.1.0').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {
