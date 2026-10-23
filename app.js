@@ -2,18 +2,23 @@
 // Every fresh page load starts at Chapter 1 with no selected verse.
 history.replaceState(null, '', location.pathname + location.search + '#chapter-1');
 let chapters = [];
-let returnToVerse = false;
+let returnToVerse = null;
 function renderChapter() {
-  const showNote = location.hash === '#note-1-1';
+  const noteMatch = location.hash.match(/^#note-(\d+)-(\d+)$/);
+  const noteKey = noteMatch ? `${Number(noteMatch[1])}-${Number(noteMatch[2])}` : null;
+  const noteVerse = noteMatch ? chapters.find(item => item.number === Number(noteMatch[1]))?.verses.find(item => item.number === Number(noteMatch[2])) : null;
+  const showNote = Boolean(noteKey && verseNotes[noteKey] && noteVerse);
   document.body.classList.toggle('note-mode', showNote);
   document.getElementById('chapter-view').hidden = showNote;
   document.getElementById('note-view').hidden = !showNote;
   document.getElementById('verse-panel').hidden = !showNote;
   if (showNote) {
-    const verse = chapters.find(item => item.number === 1)?.verses[0];
-    if (!verse) return;
-    document.getElementById('detail-verse').textContent = `1  ${verse.text}`;
-    const paragraphs = verseNotes['1-1'].paragraphs.map(runs => {
+    const chapterNumber = Number(noteMatch[1]);
+    const verse = noteVerse;
+    document.getElementById('note-back').href = `#chapter-${chapterNumber}`;
+    document.getElementById('note-view').setAttribute('aria-label', `Genesis ${chapterNumber}:${verse.number} study note`);
+    document.getElementById('detail-verse').textContent = `${verse.number}  ${verse.text}`;
+    const paragraphs = verseNotes[noteKey].paragraphs.map(runs => {
       const p = document.createElement('p');
       runs.forEach(run => {
         const element = document.createElement(run.bold ? 'strong' : 'span');
@@ -23,9 +28,9 @@ function renderChapter() {
       return p;
     });
     document.getElementById('note-content').replaceChildren(...paragraphs);
-    document.getElementById('breadcrumb').textContent = 'VERSE 1:1';
-    document.title = 'Genesis 1:1 · Study note';
-    returnToVerse = true;
+    document.getElementById('breadcrumb').textContent = `VERSE ${chapterNumber}:${verse.number}`;
+    document.title = `Genesis ${chapterNumber}:${verse.number} · Study note`;
+    returnToVerse = noteKey;
     window.scrollTo(0, 0);
     document.getElementById('note-back').focus();
     return;
@@ -77,16 +82,17 @@ function renderChapter() {
     const text = document.createElement('span');
     text.className = 'verse-text';
     text.textContent = verse.text;
-    if (number === 1 && verse.number === 1) {
+    const verseKey = `${number}-${verse.number}`;
+    paragraph.id = `verse-${verseKey}`;
+    if (verseNotes[verseKey]?.paragraphs.length) {
       const star = document.createElement('a');
       star.className = 'note-star';
-      star.href = '#note-1-1';
+      star.href = `#note-${verseKey}`;
       star.textContent = ' *';
-      star.setAttribute('aria-label', 'Open study note for Genesis 1:1');
+      star.setAttribute('aria-label', `Open study note for Genesis ${number}:${verse.number}`);
       star.addEventListener('click', event => event.stopPropagation());
       text.append(star);
-      paragraph.id = 'verse-1-1';
-      if (returnToVerse) {
+      if (returnToVerse === verseKey) {
         paragraph.classList.add('selected');
         paragraph.setAttribute('aria-pressed', 'true');
       }
@@ -102,12 +108,12 @@ function renderChapter() {
   }
   window.scrollTo(0, 0);
   if (returnToVerse) {
-    document.getElementById('verse-1-1')?.focus();
-    returnToVerse = false;
+    document.getElementById(`verse-${returnToVerse}`)?.focus();
+    returnToVerse = null;
   }
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.3.6').then(response => {
+fetch('chapters.json?v=1.4.0').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {
