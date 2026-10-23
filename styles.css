@@ -7,3 +7,10 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 /* Version 1.1.1: prominent verse numbers. */
 .verse-number{font-size:16px;font-weight:700;line-height:2.3125;color:var(--ink)}
 @media(max-width:700px){.verse{grid-template-columns:24px 1fr}.verse-number{font-size:16px;line-height:2.025}}
+
+/* Version 1.2.0: select a verse to emphasize it. */
+.verse{width:100%;text-align:left;color:inherit;background:transparent;border:2px solid transparent;border-radius:8px;padding:10px;cursor:pointer;appearance:none}
+.verse:hover{background:#f0f2e9}
+.verse.selected{border-color:var(--green);background:#edf2e7;font-size:22px}
+.verse.selected .verse-number{font-size:18px;line-height:2.26}
+@media(max-width:700px){.verse{padding:8px}.verse.selected{font-size:20px}.verse.selected .verse-number{line-height:2}}

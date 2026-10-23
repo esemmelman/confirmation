@@ -14,8 +14,21 @@ function renderChapter() {
   document.getElementById('position').textContent = `${number} / 3`;
   document.title = `Genesis ${number}`;
   const verses = chapter.verses.map(verse => {
-    const paragraph = document.createElement('p');
+    const paragraph = document.createElement('button');
     paragraph.className = 'verse';
+    paragraph.type = 'button';
+    paragraph.setAttribute('aria-pressed', 'false');
+    paragraph.addEventListener('click', () => {
+      const wasSelected = paragraph.classList.contains('selected');
+      document.querySelectorAll('.verse.selected').forEach(item => {
+        item.classList.remove('selected');
+        item.setAttribute('aria-pressed', 'false');
+      });
+      if (!wasSelected) {
+        paragraph.classList.add('selected');
+        paragraph.setAttribute('aria-pressed', 'true');
+      }
+    });
     const label = document.createElement('span');
     label.className = 'verse-number';
     label.textContent = verse.number;
@@ -35,7 +48,7 @@ function renderChapter() {
   window.scrollTo(0, 0);
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.1.1').then(response => {
+fetch('chapters.json?v=1.2.0').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {
