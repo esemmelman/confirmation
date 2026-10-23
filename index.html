@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Read Genesis chapters 1–3, with simple chapter navigation.">
   <title>Genesis</title>
-  <link rel="stylesheet" href="styles.css?v=1.3.0">
-  <script src="notes.js?v=1.3.0" defer></script>
-  <script src="app.js?v=1.3.0" defer></script>
+  <link rel="stylesheet" href="styles.css?v=1.3.1">
+  <script src="notes.js?v=1.3.1" defer></script>
+  <script src="app.js?v=1.3.1" defer></script>
 </head>
 <body>
   <a class="skip" href="#reading">Skip to chapter</a>
@@ -18,8 +18,7 @@
       <a href="#chapter-2" data-chapter="2"><span>Chp. 2</span></a>
       <a href="#chapter-3" data-chapter="3"><span>Chp. 3</span></a>
     </nav>
-    <section id="verse-panel" hidden aria-label="Selected verse"><a class="back-link" href="#chapter-1">← Back to chapter</a><h2>Genesis 1:1</h2><div id="detail-verse" class="detail-verse"></div></section>
-    <div class="sidebar-foot"><span class="version">Version 1.3.0</span><br><a href="https://docs.google.com/document/d/1r-7YdhEpg_04QjzadfveJejzvSoJPBsuAOuKBHcplQE/edit" target="_blank" rel="noopener">View source document ↗</a></div>
+    <div class="sidebar-foot"><span class="version">Version 1.3.1</span><br><a href="https://docs.google.com/document/d/1r-7YdhEpg_04QjzadfveJejzvSoJPBsuAOuKBHcplQE/edit" target="_blank" rel="noopener">View source document ↗</a></div>
   </aside>
   <main id="reading" tabindex="-1">
     <header><span>GENESIS / <span id="breadcrumb">CHAPTER 1</span></span><span class="edition">CHAPTERS 1—3</span></header>
@@ -31,7 +30,13 @@
       <p id="error" hidden>Unable to load the text. Please refresh the page.</p>
       <footer><a id="previous">← Previous chapter</a><span id="position"></span><a id="next">Next chapter →</a></footer>
     </article>
-    <article id="note-view" hidden aria-labelledby="note-title"><div class="eyebrow">GENESIS 1:1 · STUDY NOTE</div><h1 id="note-title" tabindex="-1">1-1</h1><div id="note-content"></div><a class="back-link" href="#chapter-1">← Back to chapter</a></article>
+    <article id="note-view" hidden aria-label="Genesis 1:1 study note">
+      <a id="note-back" class="back-link" href="#chapter-1">Back</a>
+      <div class="note-layout">
+        <section id="verse-panel" hidden aria-label="Selected verse"><div id="detail-verse" class="detail-verse"></div></section>
+        <div id="note-content"></div>
+      </div>
+    </article>
   </main>
 </body>
 </html>

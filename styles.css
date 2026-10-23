@@ -29,7 +29,7 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 /* Version 1.3.0: verse study notes. */
 [hidden]{display:none!important}
 .note-star{color:#8a6413;font:700 24px Georgia,serif;text-decoration:none;white-space:nowrap;padding:0 3px}
-.note-mode aside>nav,.note-mode aside>.nav-label{display:none}
+
 #verse-panel h2{font-size:15px;margin:28px 0 14px}
 .back-link{display:inline-block;color:var(--green);font:bold 13px/1.6 Arial,sans-serif;text-decoration:none}
 .back-link:hover{text-decoration:underline}
@@ -37,3 +37,12 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 #note-title{font-size:38px}
 #note-content{font:21px/1.7 Georgia,serif;margin:24px 0 36px;white-space:pre-line}
 @media(max-width:700px){.note-mode aside{width:175px;padding:18px 12px}.note-mode main{margin-left:175px;padding-left:18px;padding-right:18px}.detail-verse{font-size:18px;padding:10px}#note-content{font-size:19px}.note-mode .sidebar-foot a{font-size:10px}}
+
+/* Version 1.3.1: study verse beside its note in the main reading area. */
+.note-star{color:inherit;font:inherit;padding:0;text-decoration:none}
+#note-view{max-width:1100px}
+.note-layout{display:grid;grid-template-columns:220px minmax(0,1fr);align-items:start;gap:42px;margin-top:24px}
+#note-content{margin:0 0 36px}
+#note-content p:first-child{margin-top:0}
+#verse-panel{min-width:0}
+@media(max-width:700px){.note-mode aside{width:142px;padding:18px 12px}.note-mode main{margin-left:142px;padding:0 22px 35px}.note-layout{grid-template-columns:1fr;gap:24px}.note-layout #verse-panel{max-width:220px}}

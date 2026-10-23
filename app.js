@@ -25,7 +25,7 @@ function renderChapter() {
     document.title = 'Genesis 1:1 · Study note';
     returnToVerse = true;
     window.scrollTo(0, 0);
-    document.getElementById('note-title').focus();
+    document.getElementById('note-back').focus();
     return;
   }
   const match = location.hash.match(/^#chapter-([123])$/);
@@ -79,7 +79,7 @@ function renderChapter() {
       const star = document.createElement('a');
       star.className = 'note-star';
       star.href = '#note-1-1';
-      star.textContent = ' ★';
+      star.textContent = ' *';
       star.setAttribute('aria-label', 'Open study note for Genesis 1:1');
       star.addEventListener('click', event => event.stopPropagation());
       text.append(star);
@@ -105,7 +105,7 @@ function renderChapter() {
   }
 }
 window.addEventListener('hashchange', renderChapter);
-fetch('chapters.json?v=1.3.0').then(response => {
+fetch('chapters.json?v=1.3.1').then(response => {
   if (!response.ok) throw new Error('Chapter request failed');
   return response.json();
 }).then(data => { chapters = data; renderChapter(); }).catch(() => {
