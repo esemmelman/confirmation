@@ -20,8 +20,8 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 @media(max-width:700px){.verse{padding-top:6px;padding-bottom:6px}.verse-number{line-height:1.9125}.verse.selected .verse-number{line-height:1.889}}
 
 /* Version 1.2.3: slightly larger reading text, no hover highlight. */
-.verse{font-size:21px}.verse.selected{font-size:23px}.verse-number{line-height:2.23125}.verse.selected .verse-number{line-height:2.1722}
-@media(max-width:700px){.verse{font-size:19px}.verse.selected{font-size:21px}.verse-number{line-height:2.01875}.verse.selected .verse-number{line-height:1.9833}}
+.verse{font-size:23px}.verse.selected{font-size:25px}.verse-number{line-height:2.44375}.verse.selected .verse-number{line-height:2.3611}
+@media(max-width:700px){.verse{font-size:21px}.verse.selected{font-size:23px}.verse-number{line-height:2.23125}.verse.selected .verse-number{line-height:2.1722}}
 
 /* Version 1.2.4: allow selecting and copying verse text. */
 .verse{-webkit-user-select:text;user-select:text}.verse.selected{cursor:text}
@@ -34,10 +34,10 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 #verse-panel h2{font-size:15px;margin:28px 0 14px}
 .back-link{display:inline-block;color:var(--green);font:bold 13px/1.6 Arial,sans-serif;text-decoration:none}
 .back-link:hover{text-decoration:underline}
-.detail-verse{border:2px solid var(--green);border-radius:8px;background:#edf2e7;padding:14px;font:bold 21px/1.7 Georgia,serif;white-space:pre-wrap;user-select:text}
+.detail-verse{border:2px solid var(--green);border-radius:8px;background:#edf2e7;padding:14px;font:bold 23px/1.7 Georgia,serif;white-space:pre-wrap;user-select:text}
 #note-title{font-size:38px}
 #note-content{font:21px/1.7 Georgia,serif;margin:24px 0 36px;white-space:pre-line}
-@media(max-width:700px){.note-mode aside{width:175px;padding:18px 12px}.note-mode main{margin-left:175px;padding-left:18px;padding-right:18px}.detail-verse{font-size:18px;padding:10px}#note-content{font-size:19px}.note-mode .sidebar-foot a{font-size:10px}}
+@media(max-width:700px){.note-mode aside{width:175px;padding:18px 12px}.note-mode main{margin-left:175px;padding-left:18px;padding-right:18px}.detail-verse{font-size:20px;padding:10px}#note-content{font-size:19px}.note-mode .sidebar-foot a{font-size:10px}}
 
 /* Version 1.3.1: study verse beside its note in the main reading area. */
 #note-view{max-width:1100px}
