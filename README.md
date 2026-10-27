@@ -6,6 +6,8 @@ A responsive reader for Genesis chapters 1–3 from the supplied Google Doc. Sel
 
 GitHub Actions automatically deploys each push to `main` to GitHub Pages. Edit the files, commit, and push to publish an update. Each page load reads the latest chapters and Notes tab directly from the public Google Doc, matching note labels such as `1-1`. Keep the document shared as anyone with the link can view. The app preserves note paragraphs and bold text and replaces punctuation dashes in verses with periods. If Google is unavailable, the app labels and displays the saved copies in `chapters.json` and `notes.js`.
 
+The reader renders `chapters.js` and `notes.js` immediately, then refreshes from Google in the background with an eight-second deadline. Updating the saved chapter text requires regenerating `chapters.js` from `chapters.json`. A slow or unavailable Google Doc never blocks reading or chapter navigation.
+
 ## Local preview
 
 Every verse has an asterisk after selection. Its study view preserves the live document notes and adds source entries with bold names, plain text, and two blank lines between entries. The × removes only that source entry for that verse, persisting in the current browser using localStorage (or for the current visit if storage is blocked).

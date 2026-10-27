@@ -1,7 +1,7 @@
 'use strict';
 // Every fresh page load starts at Chapter 1 with no selected verse.
 history.replaceState(null, '', location.pathname + location.search + '#chapter-1');
-let chapters = [];
+let chapters = savedChapters;
 let returnToVerse = null;
 const removalKey = 'genesis-removed-commentaries-v1';
 let removedCommentaries;
@@ -160,25 +160,30 @@ function renderChapter() {
 window.addEventListener('hashchange', renderChapter);
 async function initialize() {
   const status = document.getElementById('sync-status');
+  renderChapter();
+  status.textContent = 'Showing saved text. Checking for document updates…';
+  let timeout;
   try {
-    const latest = await loadLatestDocument();
+    const latest = await Promise.race([
+      loadLatestDocument(),
+      new Promise((resolve, reject) => {
+        timeout = setTimeout(() => reject(new Error('Document refresh timed out')), 8000);
+      })
+    ]);
     chapters = latest.chapters;
     Object.keys(verseNotes).forEach(key => delete verseNotes[key]);
     Object.assign(verseNotes, latest.notes);
     status.textContent = 'Latest document loaded';
-  } catch (error) {
-    try {
-      const response = await fetch('chapters.json?v=1.5.0');
-      if (!response.ok) throw new Error('Saved chapter request failed');
-      chapters = await response.json();
-      status.textContent = 'Google Doc unavailable. Showing saved text; reload to retry.';
-    } catch {
-      status.textContent = '';
-      document.getElementById('verses').replaceChildren();
-      document.getElementById('error').hidden = false;
-      return;
+    // Apply updates on the next navigation without interrupting reading or notes.
+    if (!document.querySelector('.verse.selected') && !document.body.classList.contains('note-mode')) {
+      const scrollY = window.scrollY;
+      renderChapter();
+      window.scrollTo(0, scrollY);
     }
+  } catch (error) {
+    status.textContent = 'Google Doc unavailable. Showing saved text; reload to retry.';
+  } finally {
+    clearTimeout(timeout);
   }
-  renderChapter();
 }
 initialize();
