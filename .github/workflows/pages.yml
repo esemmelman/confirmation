@@ -22,7 +22,18 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir _site
-          cp index.html styles.css app.js live-document.js notes.js chapters.json _site/
+          cp index.html styles.css app.js live-document.js notes.js chapters.js commentaries.js chapters.json _site/
+      - name: Check published assets
+        run: |
+          node <<'NODE'
+          const fs = require('node:fs');
+          const html = fs.readFileSync('_site/index.html', 'utf8');
+          for (const [, reference] of html.matchAll(/(?:src|href)="([^"#]+)"/g)) {
+            if (/^(?:https?:|\/\/)/.test(reference)) continue;
+            const path = '_site/' + reference.split('?')[0];
+            if (!fs.existsSync(path)) throw new Error('Missing published asset: ' + path);
+          }
+          NODE
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
