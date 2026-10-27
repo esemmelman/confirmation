@@ -85,13 +85,21 @@ function renderChapter() {
     const verseKey = `${number}-${verse.number}`;
     paragraph.id = `verse-${verseKey}`;
     if (verseNotes[verseKey]?.paragraphs.length) {
-      const expand = document.createElement('a');
-      expand.className = 'note-expand';
-      expand.href = `#note-${verseKey}`;
-      expand.textContent = ' ⛶';
-      expand.setAttribute('aria-label', `Expand study note for Genesis ${number}:${verse.number}`);
-      expand.addEventListener('click', event => event.stopPropagation());
-      text.append(expand);
+      const noteLink = document.createElement('a');
+      noteLink.className = 'note-link';
+      noteLink.href = `#note-${verseKey}`;
+      noteLink.setAttribute('aria-label', `Read notes for Genesis ${number}:${verse.number}`);
+      noteLink.title = 'Read notes';
+      const icon = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      icon.setAttribute('viewBox', '0 0 24 24');
+      icon.setAttribute('aria-hidden', 'true');
+      icon.setAttribute('focusable', 'false');
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', 'M14 3H5v18h14V8l-5-5Zm0 0v5h5M8 12h8M8 16h8');
+      icon.append(path);
+      noteLink.append(icon);
+      noteLink.addEventListener('click', event => event.stopPropagation());
+      text.append(noteLink);
       if (returnToVerse === verseKey) {
         paragraph.classList.add('selected');
         paragraph.setAttribute('aria-pressed', 'true');
