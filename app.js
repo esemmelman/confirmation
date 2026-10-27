@@ -3,11 +3,53 @@
 history.replaceState(null, '', location.pathname + location.search + '#chapter-1');
 let chapters = [];
 let returnToVerse = null;
+const removalKey = 'genesis-removed-commentaries-v1';
+let removedCommentaries;
+try {
+  const saved = JSON.parse(localStorage.getItem(removalKey) || '[]');
+  removedCommentaries = new Set(Array.isArray(saved) ? saved.filter(item => typeof item === 'string') : []);
+} catch { removedCommentaries = new Set(); }
+function commentaryElements(verseKey) {
+  return (verseCommentaries[verseKey] || []).filter(entry => !removedCommentaries.has(`${verseKey}:${entry.id}`)).map(entry => {
+    const paragraph = document.createElement('p');
+    paragraph.className = 'commentary-entry';
+    const name = document.createElement('strong');
+    name.textContent = entry.name;
+    const text = document.createElement('span');
+    text.textContent = ' ' + (entry.text || 'Commentary text has not been supplied for this verse.');
+    paragraph.append(name, text);
+    if (entry.url) {
+      const link = document.createElement('a');
+      link.href = entry.url;
+      link.target = '_blank';
+      link.rel = 'noopener';
+      link.className = 'commentary-source';
+      link.textContent = ' Source ↗';
+      link.setAttribute('aria-label', `Read ${entry.name} source for Genesis ${verseKey.replace('-', ':')}`);
+      paragraph.append(link);
+    }
+    const remove = document.createElement('button');
+    remove.type = 'button';
+    remove.className = 'remove-commentary';
+    remove.textContent = '×';
+    remove.setAttribute('aria-label', `Remove ${entry.name} commentary for Genesis ${verseKey.replace('-', ':')}`);
+    remove.addEventListener('click', () => {
+      removedCommentaries.add(`${verseKey}:${entry.id}`);
+      try { localStorage.setItem(removalKey, JSON.stringify([...removedCommentaries])); }
+      catch { /* Removal still works for this visit if storage is unavailable. */ }
+      const next = paragraph.nextElementSibling?.querySelector('button') || paragraph.previousElementSibling?.querySelector('button');
+      paragraph.remove();
+      (next || document.getElementById('note-back')).focus();
+    });
+    paragraph.append(remove);
+    return paragraph;
+  });
+}
 function renderChapter() {
   const noteMatch = location.hash.match(/^#note-(\d+)-(\d+)$/);
   const noteKey = noteMatch ? `${Number(noteMatch[1])}-${Number(noteMatch[2])}` : null;
   const noteVerse = noteMatch ? chapters.find(item => item.number === Number(noteMatch[1]))?.verses.find(item => item.number === Number(noteMatch[2])) : null;
-  const showNote = Boolean(noteKey && verseNotes[noteKey] && noteVerse);
+  const showNote = Boolean(noteKey && (verseNotes[noteKey] || verseCommentaries[noteKey]) && noteVerse);
   document.body.classList.toggle('note-mode', showNote);
   document.getElementById('chapter-view').hidden = showNote;
   document.getElementById('note-view').hidden = !showNote;
@@ -18,7 +60,7 @@ function renderChapter() {
     document.getElementById('note-back').href = `#chapter-${chapterNumber}`;
     document.getElementById('note-view').setAttribute('aria-label', `Genesis ${chapterNumber}:${verse.number} study note`);
     document.getElementById('detail-verse').textContent = `${verse.number}  ${verse.text}`;
-    const paragraphs = verseNotes[noteKey].paragraphs.map(runs => {
+    const paragraphs = (verseNotes[noteKey]?.paragraphs || []).map(runs => {
       const p = document.createElement('p');
       runs.forEach(run => {
         const element = document.createElement(run.bold ? 'strong' : 'span');
@@ -27,7 +69,10 @@ function renderChapter() {
       });
       return p;
     });
-    document.getElementById('note-content').replaceChildren(...paragraphs);
+    const introduction = document.createElement('p');
+    introduction.className = 'commentary-introduction';
+    introduction.textContent = 'Commentaries below are concise summaries. Unavailable texts are marked. The × removes an entry in this browser.';
+    document.getElementById('note-content').replaceChildren(...paragraphs, introduction, ...commentaryElements(noteKey));
     document.getElementById('breadcrumb').textContent = `VERSE ${chapterNumber}:${verse.number}`;
     document.title = `Genesis ${chapterNumber}:${verse.number} · Study note`;
     returnToVerse = noteKey;
@@ -84,7 +129,7 @@ function renderChapter() {
     text.textContent = verse.text;
     const verseKey = `${number}-${verse.number}`;
     paragraph.id = `verse-${verseKey}`;
-    if (verseNotes[verseKey]?.paragraphs.length) {
+    if (verseNotes[verseKey]?.paragraphs.length || verseCommentaries[verseKey]) {
       const star = document.createElement('a');
       star.className = 'note-star';
       star.href = `#note-${verseKey}`;

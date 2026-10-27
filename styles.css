@@ -59,3 +59,9 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 @media(max-width:700px){.note-layout{column-gap:24px}}
 
 #sync-status{font:11px/1.5 Arial,sans-serif;margin-top:6px;color:var(--muted)}
+.commentary-entry{font-weight:400;margin:0 0 3.4em;white-space:pre-line}
+.commentary-entry strong{font-weight:700}
+.commentary-source{font:12px Arial,sans-serif;color:var(--green);white-space:nowrap}
+.remove-commentary{display:inline-grid;place-items:center;margin-left:8px;width:26px;height:26px;border:1px solid #c4cabe;border-radius:50%;background:transparent;color:var(--muted);font:18px/1 Arial,sans-serif;cursor:pointer;vertical-align:middle}
+.remove-commentary:hover{background:#e4e7dc;color:var(--ink)}
+.commentary-introduction{font:13px/1.6 Arial,sans-serif;color:var(--muted);white-space:normal;margin-bottom:2em}
