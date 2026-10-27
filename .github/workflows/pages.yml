@@ -22,7 +22,7 @@ jobs:
       - name: Prepare public files
         run: |
           mkdir _site
-          cp index.html styles.css app.js live-document.js notes.js chapters.js commentaries.js chapters.json _site/
+          cp index.html styles.css app.js live-document.js notes.js chapters.js chapters.json _site/
       - name: Check published assets
         run: |
           node <<'NODE'

@@ -10,8 +10,6 @@ The reader renders `chapters.js` and `notes.js` immediately, then refreshes from
 
 ## Local preview
 
-Every verse has an asterisk after selection. Its study view preserves the live document notes and adds source entries with bold names, plain text, and two blank lines between entries. The × removes only that source entry for that verse, persisting in the current browser using localStorage (or for the current visit if storage is blocked).
-
-`commentaries.js` contains concise paraphrases from the existing Genesis 1 study material for Rashi, S’forno, Ramban, Unkelos, and Rabbi Steinsaltz, with links to the checked passages. Related comments and verses with no separate entry are identified. Plaut Torah, Etz Chaim Torah, and chapters 2–3 still require source text; these entries explicitly state that text has not been supplied. They must not be treated as completed commentary coverage. Live Google Doc refreshes do not replace this commentary data.
+An asterisk appears on a selected verse only when its chapter-verse label has content in the Google Doc Notes tab. The study view displays only that note, preserving its paragraphs and bold text. `notes.js` is a saved copy of the same tab for immediate and offline display. The separate Google Doc Commentary tab is study material and is not appended to asterisk notes.
 
 Run `python -m http.server 8000` in this directory, then open http://localhost:8000.
