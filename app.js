@@ -85,13 +85,13 @@ function renderChapter() {
     const verseKey = `${number}-${verse.number}`;
     paragraph.id = `verse-${verseKey}`;
     if (verseNotes[verseKey]?.paragraphs.length) {
-      const star = document.createElement('a');
-      star.className = 'note-star';
-      star.href = `#note-${verseKey}`;
-      star.textContent = ' *';
-      star.setAttribute('aria-label', `Open study note for Genesis ${number}:${verse.number}`);
-      star.addEventListener('click', event => event.stopPropagation());
-      text.append(star);
+      const expand = document.createElement('a');
+      expand.className = 'note-expand';
+      expand.href = `#note-${verseKey}`;
+      expand.textContent = ' ⛶';
+      expand.setAttribute('aria-label', `Expand study note for Genesis ${number}:${verse.number}`);
+      expand.addEventListener('click', event => event.stopPropagation());
+      text.append(expand);
       if (returnToVerse === verseKey) {
         paragraph.classList.add('selected');
         paragraph.setAttribute('aria-pressed', 'true');

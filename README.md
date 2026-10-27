@@ -10,6 +10,6 @@ The reader renders `chapters.js` and `notes.js` immediately, then refreshes from
 
 ## Local preview
 
-An asterisk appears on a selected verse only when its chapter-verse label has content in the Google Doc Notes tab. The study view displays only that note, preserving its paragraphs and bold text. `notes.js` is a saved copy of the same tab for immediate and offline display. The separate Google Doc Commentary tab is study material and is not appended to asterisk notes.
+An expand symbol (⛶) appears on a selected verse only when its chapter-verse label has content in the Google Doc Notes tab. The study view displays only that note, preserving its paragraphs and bold text. `notes.js` is a saved copy of the same tab for immediate and offline display. The separate Google Doc Commentary tab is study material and is not appended to expanded notes.
 
 Run `python -m http.server 8000` in this directory, then open http://localhost:8000.
