@@ -67,10 +67,10 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{margin-left:0;padding-left:58px;padding-right:58px}
 .sidebar-collapsed #sidebar-toggle{left:12px}
 #chapter-view{max-width:1100px}
-.verse,.verse.selected{font-size:clamp(44px,4.5vw,60px);line-height:1.65;grid-template-columns:40px minmax(0,1fr);gap:16px}
-.verse-number,.verse.selected .verse-number{font-size:22px;line-height:3.3}
+.verse,.verse.selected{font-size:clamp(44px,4.5vw,60px);line-height:1.65;grid-template-columns:52px minmax(0,1fr);gap:16px}
+.verse-number,.verse.selected .verse-number{font-size:36px;line-height:inherit}
 #note-content{font-size:clamp(44px,4.5vw,60px);line-height:1.65;overflow-wrap:anywhere}
 .detail-verse{font-size:40px;line-height:1.65}
 .note-link svg{width:28px;height:28px}
-@media(max-width:700px){#sidebar-toggle{left:104px;width:30px;height:30px;font-size:28px}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-left:20px;padding-right:20px}header{padding-left:36px}.verse,.verse.selected{font-size:40px;grid-template-columns:28px minmax(0,1fr);gap:10px;padding-left:0;padding-right:0}.verse-number,.verse.selected .verse-number{font-size:18px;line-height:2.75}#note-content{font-size:40px}.detail-verse{font-size:36px}}
+@media(max-width:700px){#sidebar-toggle{left:104px;width:30px;height:30px;font-size:28px}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-left:20px;padding-right:20px}header{padding-left:36px}.verse,.verse.selected{font-size:40px;grid-template-columns:40px minmax(0,1fr);gap:10px;padding-left:0;padding-right:0}.verse-number,.verse.selected .verse-number{font-size:30px;line-height:inherit}#note-content{font-size:40px}.detail-verse{font-size:36px}}
 @media print{#sidebar-toggle{display:none}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding:0}}
