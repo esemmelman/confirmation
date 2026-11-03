@@ -61,3 +61,16 @@ aside{padding-top:20px}.nav-label{margin:0 14px 10px;font-weight:700}nav{gap:3px
 #sync-status{font:11px/1.5 Arial,sans-serif;margin-top:6px;color:var(--muted)}
 @media(max-width:700px){.note-layout{display:block}.note-layout #verse-panel{top:12px;max-height:35dvh;margin-bottom:24px}}
 @media print{#verse-panel{position:static;max-height:none;overflow:visible}}
+
+/* Spacious reading view with a collapsible chapter menu. */
+#sidebar-toggle{position:fixed;top:8px;left:210px;z-index:3;width:34px;height:34px;border:1px solid #b9c4b3;border-radius:6px;background:var(--paper);color:var(--green);font:32px/1 Arial,sans-serif;cursor:pointer;display:grid;place-items:center;padding:0}
+body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{margin-left:0;padding-left:58px;padding-right:58px}
+.sidebar-collapsed #sidebar-toggle{left:12px}
+#chapter-view{max-width:1100px}
+.verse,.verse.selected{font-size:clamp(32px,3.3vw,44px);line-height:1.65;grid-template-columns:40px minmax(0,1fr);gap:16px}
+.verse-number,.verse.selected .verse-number{font-size:22px;line-height:3.3}
+#note-content{font-size:clamp(30px,3vw,40px);line-height:1.65;overflow-wrap:anywhere}
+.detail-verse{font-size:30px;line-height:1.65}
+.note-link svg{width:28px;height:28px}
+@media(max-width:700px){#sidebar-toggle{left:104px;width:30px;height:30px;font-size:28px}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-left:20px;padding-right:20px}header{padding-left:36px}.verse,.verse.selected{font-size:30px;grid-template-columns:28px minmax(0,1fr);gap:10px;padding-left:0;padding-right:0}.verse-number,.verse.selected .verse-number{font-size:18px;line-height:2.75}#note-content{font-size:30px}.detail-verse{font-size:27px}}
+@media print{#sidebar-toggle{display:none}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding:0}}

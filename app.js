@@ -1,17 +1,46 @@
 'use strict';
-// Every fresh page load starts at Chapter 1 with no selected verse.
-history.replaceState(null, '', location.pathname + location.search + '#chapter-1');
+// Every fresh page load starts with an empty reading area.
+history.replaceState(null, '', location.pathname + location.search);
 let chapters = savedChapters;
 let returnToVerse = null;
+const sidebar = document.getElementById('chapter-sidebar');
+const sidebarToggle = document.getElementById('sidebar-toggle');
+function setSidebarOpen(open) {
+  sidebar.hidden = !open;
+  document.body.classList.toggle('sidebar-collapsed', !open);
+  sidebarToggle.setAttribute('aria-expanded', String(open));
+  sidebarToggle.setAttribute('aria-label', open ? 'Hide chapters' : 'Show chapters');
+  sidebarToggle.textContent = open ? '‹' : '›';
+}
+sidebarToggle.addEventListener('click', () => setSidebarOpen(sidebar.hidden));
+document.querySelectorAll('[data-chapter]').forEach(link => {
+  link.addEventListener('click', () => {
+    setSidebarOpen(false);
+    document.getElementById('reading').focus();
+  });
+});
 function renderChapter() {
+  const chapterMatch = location.hash.match(/^#chapter-([123])$/);
   const noteMatch = location.hash.match(/^#note-(\d+)-(\d+)$/);
   const noteKey = noteMatch ? `${Number(noteMatch[1])}-${Number(noteMatch[2])}` : null;
   const noteVerse = noteMatch ? chapters.find(item => item.number === Number(noteMatch[1]))?.verses.find(item => item.number === Number(noteMatch[2])) : null;
   const showNote = Boolean(noteKey && verseNotes[noteKey] && noteVerse);
   document.body.classList.toggle('note-mode', showNote);
-  document.getElementById('chapter-view').hidden = showNote;
+  const hasContent = Boolean(showNote || chapterMatch);
+  document.getElementById('reading-header').hidden = !hasContent;
+  document.getElementById('chapter-view').hidden = showNote || !chapterMatch;
   document.getElementById('note-view').hidden = !showNote;
   document.getElementById('verse-panel').hidden = !showNote;
+  document.querySelectorAll('[data-chapter]').forEach(link => {
+    const activeNumber = showNote ? Number(noteMatch[1]) : Number(chapterMatch?.[1]);
+    if (Number(link.dataset.chapter) === activeNumber) link.setAttribute('aria-current', 'page');
+    else link.removeAttribute('aria-current');
+  });
+  if (!hasContent) {
+    document.title = 'Genesis';
+    document.getElementById('verses').replaceChildren();
+    return;
+  }
   if (showNote) {
     const chapterNumber = Number(noteMatch[1]);
     const verse = noteVerse;
@@ -35,8 +64,7 @@ function renderChapter() {
     document.getElementById('note-back').focus();
     return;
   }
-  const match = location.hash.match(/^#chapter-([123])$/);
-  const number = match ? Number(match[1]) : 1;
+  const number = Number(chapterMatch[1]);
   const chapter = chapters.find(item => item.number === number);
   if (!chapter) return;
   document.querySelectorAll('[data-chapter]').forEach(link => {
