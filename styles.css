@@ -80,3 +80,9 @@ body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{margin-left:0;
 #verse-panel{top:60px;max-height:calc(100dvh - 80px)}
 @media(max-width:700px){.note-layout #verse-panel{top:60px;max-height:35dvh}}
 @media print{#note-back{position:static}#verse-panel{max-height:none}}
+
+/* Use the full available width in every reading view. */
+main,.note-mode main,body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-right:0}
+#chapter-view,#note-view{max-width:none}
+.note-layout{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
+@media(max-width:700px){.note-layout{grid-template-columns:1fr}.note-layout #verse-panel{max-width:none}}
