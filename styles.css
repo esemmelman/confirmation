@@ -74,3 +74,9 @@ body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{margin-left:0;
 .note-link svg{width:28px;height:28px}
 @media(max-width:700px){#sidebar-toggle{left:104px;width:30px;height:30px;font-size:28px}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-left:20px;padding-right:20px}header{padding-left:36px}.verse,.verse.selected{font-size:40px;grid-template-columns:40px minmax(0,1fr);gap:10px;padding-left:0;padding-right:0}.verse-number,.verse.selected .verse-number{font-size:30px;line-height:inherit}#note-content{font-size:40px}.detail-verse{font-size:36px}}
 @media print{#sidebar-toggle{display:none}body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding:0}}
+
+/* Keep note navigation visible above the sticky verse pane. */
+#note-back{position:sticky;top:8px;z-index:2;background:var(--paper);padding:4px 0}
+#verse-panel{top:60px;max-height:calc(100dvh - 80px)}
+@media(max-width:700px){.note-layout #verse-panel{top:60px}}
+@media print{#note-back{position:static}#verse-panel{max-height:none}}
