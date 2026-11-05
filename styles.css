@@ -82,10 +82,10 @@ body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{margin-left:0;
 @media print{#note-back{position:static}#verse-panel{max-height:none}}
 
 /* Use the full available width in every reading view. */
-main,.note-mode main,body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-right:24px}
+main,.note-mode main,body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-right:36px}
 #chapter-view,#note-view{max-width:none}
 .note-layout{grid-template-columns:minmax(0,360px) minmax(0,1fr)}
-@media(max-width:700px){main,.note-mode main,body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-right:16px}.note-layout{grid-template-columns:1fr}.note-layout #verse-panel{max-width:none}}
+@media(max-width:700px){main,.note-mode main,body.sidebar-collapsed main,body.sidebar-collapsed.note-mode main{padding-right:28px}.note-layout{grid-template-columns:1fr}.note-layout #verse-panel{max-width:none}}
 
 /* Hebrew verses read from right to left within the card. */
 .verse-text[dir="rtl"]{text-align:right}
