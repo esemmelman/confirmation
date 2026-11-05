@@ -14,4 +14,4 @@ A small page-shaped notes icon appears on a selected verse only when its chapter
 
 Run `python -m http.server 8000` in this directory, then open http://localhost:8000.
 
-Click a verse card once to select it, then click it again to display the Hebrew verse. Further clicks toggle Hebrew and English; Enter and Space also work. Hebrew for Genesis 1–3 is bundled in `hebrew.js` from [Sefaria](https://www.sefaria.org/Genesis), so it is available offline. Study-note links remain available in either language.
+Click a verse card once to select it, then click it again to display the Hebrew verse. Further clicks toggle Hebrew and English; Enter and Space also work. Hebrew for Genesis 1–3 is bundled in `hebrew.js` from [Sefaria](https://www.sefaria.org/Genesis), so it is available offline. The Hebrew retains vowel points and omits cantillation (trope) and meteg marks. Study-note links remain available in either language.
