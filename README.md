@@ -13,3 +13,5 @@ The reader renders `chapters.js` and `notes.js` immediately, then refreshes from
 A small page-shaped notes icon appears on a selected verse only when its chapter-verse label has content in the Google Doc Notes tab. The verse box stays visible while scrolling the study view, which displays only that note, preserving its paragraphs and bold text. `notes.js` is a saved copy of the same tab for immediate and offline display. The separate Google Doc Commentary tab is study material and is not appended to expanded notes.
 
 Run `python -m http.server 8000` in this directory, then open http://localhost:8000.
+
+Click a verse card once to select it, then click it again to display the Hebrew verse. Further clicks toggle Hebrew and English; Enter and Space also work. Hebrew for Genesis 1–3 is bundled in `hebrew.js` from [Sefaria](https://www.sefaria.org/Genesis), so it is available offline. Study-note links remain available in either language.

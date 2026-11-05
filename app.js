@@ -94,6 +94,13 @@ function renderChapter() {
         return;
       }
       const wasSelected = paragraph.classList.contains('selected');
+      if (wasSelected) {
+        const showHebrew = verseText.lang !== 'he';
+        verseText.textContent = showHebrew ? hebrewVerses[number][verse.number - 1] : verse.text;
+        verseText.lang = showHebrew ? 'he' : 'en';
+        text.dir = showHebrew ? 'rtl' : 'ltr';
+        return;
+      }
       document.querySelectorAll('.verse.selected').forEach(item => {
         item.classList.remove('selected');
         item.setAttribute('aria-pressed', 'false');
@@ -109,7 +116,10 @@ function renderChapter() {
     label.setAttribute('aria-label', `Verse ${verse.number}`);
     const text = document.createElement('span');
     text.className = 'verse-text';
-    text.textContent = verse.text;
+    const verseText = document.createElement('span');
+    verseText.lang = 'en';
+    verseText.textContent = verse.text;
+    text.append(verseText);
     const verseKey = `${number}-${verse.number}`;
     paragraph.id = `verse-${verseKey}`;
     if (verseNotes[verseKey]?.paragraphs.length) {
